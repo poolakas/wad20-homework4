@@ -89,7 +89,7 @@ const testData = [
     }
 ];
 
-//Mock axios.get method that our Component calls in mounted event
+// eslint-disable-next-line no-undef
 jest.mock("axios", () => ({
     get: () => Promise.resolve({
         data: testData
@@ -97,10 +97,38 @@ jest.mock("axios", () => ({
 }));
 
 describe('Posts', () => {
-
     const wrapper = mount(Posts, {router, store, localVue});
+    it('NumberPosts',() => {
+        expect(testData.length==3).toBe(true)
+    })
+    it('media',() =>{
+        let hasMedia = 0
+        for(var i = 0; i<testData.length;i++){
+            if(testData[i].hasOwnProperty('media')==true){
+                if(testData[i]['media'] == null){
+                    hasMedia++
+
+                }else {
+                    if (testData[i]['media'].hasOwnProperty('type')==true && testData[i]['media'].hasOwnProperty('url')==true   ) {
+                        hasMedia++
+
+                    }
+                }
+            }
+
+        }
+        expect(hasMedia==testData.length).toBe(true)
+    })
 
     it('1 == 1', function () {
         expect(true).toBe(true)
     });
+    it('dateformat', () =>{
+        let correctDate = 0
+        for(var i = 0;i<testData.length;i++){
+            console.log(testData[i]['createTime'])
+            //if(testData[i]['createTime'].DateTimeFormat())
+        }
+        expect()
+    })
 });
