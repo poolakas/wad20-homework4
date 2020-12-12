@@ -26,6 +26,22 @@ router.post('/', authorize,  (request, response) => {
 
     // Endpoint to create a new post
 
+    let text = request.body.text;
+    let media = request.body.media.url;
+
+    if (!text && !media) {
+        response.status(400).json();
+        return
+    }
+
+    PostModel.create( {
+        "userId": request.currentUser.id,
+        "text": request.body.text,
+        "media": request.body.media
+        },
+        callback => {console.log(callback);}
+    )
+    response.json([]);
 });
 
 
